@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +32,9 @@ public class TestLoginCourier {
 
         //check if courier is created
         Response resp = cm.loginCourier(courierLogin);
-        resp.then().statusCode(200);
+        resp.then().statusCode(200)
+                .body("id", Matchers.instanceOf(Integer.class));
+
         String jsonString = resp.getBody().asString();
         Gson gson = new Gson();
         CourierId courierId = gson.fromJson(jsonString, CourierId.class);
