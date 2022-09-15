@@ -8,21 +8,22 @@ import static io.restassured.RestAssured.given;
 
 public class CourierManager {
     private final WebManager webManager = new WebManager();
-    private final String[] logins = {"bestLogin", "worstLogin", "justALogin", "noLogin", "testLogin", "funnyLogin", "sadLogin"};
+    private final String[] logins = {"bestLogin", "worstLogin", "justALogin", "noLogin", "logoutLogin", "funnyLogin", "sadLogin"};
     private final String[] passwords = {"bestPass", "Password", "pAssworD", "YouShallNotPass", "boringpassword", "123456798", "qwerty"};
     private final String[] names = {"NoName", "HaveName", "JustAName", "Nameless", "BestName", "Sam", "Dean"};
 
     @Step("Get one of the logins")
-    public String getLogin(){
+    public String getLogin() {
         return logins[new Random().nextInt(logins.length)];
     }
 
     @Step("Get one of the passwords")
-    public String getPassword(){
+    public String getPassword() {
         return passwords[new Random().nextInt(passwords.length)];
     }
+
     @Step("Get one of the names")
-    public String getName(){
+    public String getName() {
         return names[new Random().nextInt(names.length)];
     }
 
@@ -37,7 +38,7 @@ public class CourierManager {
     }
 
     @Step("Delete courier")
-    public Response deleteCurrentCourier(Response resp) {
+    public void deleteCurrentCourier(Response resp) {
         String deleteAPI = webManager.getDeleteCourierAPI();
         CourierId courier;
 
@@ -50,10 +51,10 @@ public class CourierManager {
             throw new RuntimeException(e);
         }
 
-        return given()
-                .body(courier)
-                .when()
-                .delete(deleteAPI, courier.getId());
+        given()
+            .body(courier)
+            .when()
+            .delete(deleteAPI, courier.getId());
     }
 
     @Step("Login courier")

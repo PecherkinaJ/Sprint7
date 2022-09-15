@@ -26,7 +26,7 @@ public class TestCreateOrder {
         RestAssured.baseURI = webManager.getBaseURI();
     }
 
-    @Parameterized.Parameters(name = "Тестовые данные: ожидается: 201, результат: {1}")
+    @Parameterized.Parameters(name = "expected: 201, actual: {1}")
     public static Object[] data() {
         return new Object[][]{
                 {orderBlackAndGreyColorsUpperCase(), 201},
