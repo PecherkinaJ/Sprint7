@@ -31,3 +31,5 @@ target/
 
 *.doc
 *.docx
+
+.idea/
